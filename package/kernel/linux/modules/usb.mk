@@ -1118,8 +1118,23 @@ $(eval $(call KernelPackage,usb-net))
 
 define AddDepends/usb-net
   SUBMENU:=$(USB_MENU)
-  DEPENDS+=kmod-usb-net $(1)
+  DEPENDS+=+kmod-usb-net $(1)
 endef
+
+
+define KernelPackage/usb-net-aqc111
+  TITLE:=Support for USB-to-Ethernet Aquantia AQtion 5/2.5GbE
+  KCONFIG:=CONFIG_USB_NET_AQC111
+  FILES:=$(LINUX_DIR)/drivers/$(USBNET_DIR)/aqc111.ko
+  AUTOLOAD:=$(call AutoProbe,aqc111)
+  $(call AddDepends/usb-net)
+endef
+
+define KernelPackage/usb-net-aqc111/description
+ Support for USB-to-Ethernet Aquantia AQtion 5/2.5GbE
+endef
+
+$(eval $(call KernelPackage,usb-net-aqc111))
 
 
 define KernelPackage/usb-net-asix
